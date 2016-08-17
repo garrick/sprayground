@@ -61,6 +61,11 @@
       <version>${spray.version}</version>
     </dependency>
     <dependency>
+      <groupId>io.spray</groupId>
+      <artifactId>spray-json_${scala.version}</artifactId>
+      <version>${spray.version}</version>
+    </dependency>
+    <dependency>
       <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>
       <version>9.4.1207</version>
