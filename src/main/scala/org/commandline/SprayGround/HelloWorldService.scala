@@ -31,14 +31,12 @@ class HelloWorldService extends Actor with ActorLogging {
 
     case HttpRequest(GET, Uri.Path("/hipster"), _, _, _) =>
       val replyTo = sender
-      val hipsterWisdom = client.getOrderConfirmation
+      val hipsterWisdom = client.getHipsterJesusWisdom
       hipsterWisdom.onComplete {
         case Success(wisdom) => replyTo ! HttpResponse(entity = wisdom.text)
         case Failure(e) => replyTo ! HttpResponse(entity = "BADNESS!!\n" + e.getMessage)
       }
-
-
-
+      
     case HttpRequest(GET, Uri.Path("/stream"), _, _, _) =>
       val peer = sender // since the Props creator is executed asyncly we need to save the sender ref
       context actorOf Props(new Streamer(peer, 25))

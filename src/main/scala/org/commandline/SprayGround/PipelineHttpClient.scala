@@ -35,7 +35,7 @@ class PipelineHttpClient(implicit ec: ExecutionContext) {
       ~> unmarshal[HipsterJesus]
     )
 
-  def getOrderConfirmation: Future[HipsterJesus] = {
+  def getHipsterJesusWisdom: Future[HipsterJesus] = {
     val response: Future[HipsterJesus] =
       pipeline(Get(MyJsonProtocol.API, ""))
     response
