@@ -11,9 +11,13 @@ import spray.http._
 import HttpMethods._
 import MediaTypes._
 
+import scala.concurrent.Future
+import scala.util.{Failure, Success}
+
 class HelloWorldService extends Actor with ActorLogging {
   implicit val timeout: Timeout = 1.second // for the actor 'asks'
   import context.dispatcher // ExecutionContext for the futures and scheduler
+  val client = new PipelineHttpClient()
 
   def receive = {
     // when a new connection comes in we register ourselves as the connection handler
@@ -24,6 +28,16 @@ class HelloWorldService extends Actor with ActorLogging {
 
     case HttpRequest(GET, Uri.Path("/ping"), _, _, _) =>
       sender ! HttpResponse(entity = "PONG!")
+
+    case HttpRequest(GET, Uri.Path("/hipster"), _, _, _) =>
+      val hipsterWisdom = client.getOrderConfirmation
+      val server = sender
+      hipsterWisdom.onComplete {
+        case Success(wisdom) => server ! HttpResponse(entity = wisdom.text)
+        case Failure(e) => server ! HttpResponse(entity = "BADNESS!!\n" + e.getMessage)
+      }
+
+
 
     case HttpRequest(GET, Uri.Path("/stream"), _, _, _) =>
       val peer = sender // since the Props creator is executed asyncly we need to save the sender ref
@@ -70,6 +84,7 @@ class HelloWorldService extends Actor with ActorLogging {
           <p>Defined resources:</p>
           <ul>
             <li><a href="/ping">/ping</a></li>
+            <li><a href="/hipster">/hipster</a></li>
             <li><a href="/stream">/stream</a></li>
             <li><a href="/server-stats">/server-stats</a></li>
             <li><a href="/crash">/crash</a></li>
