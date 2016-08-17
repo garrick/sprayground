@@ -30,11 +30,11 @@ class HelloWorldService extends Actor with ActorLogging {
       sender ! HttpResponse(entity = "PONG!")
 
     case HttpRequest(GET, Uri.Path("/hipster"), _, _, _) =>
+      val replyTo = sender
       val hipsterWisdom = client.getOrderConfirmation
-      val server = sender
       hipsterWisdom.onComplete {
-        case Success(wisdom) => server ! HttpResponse(entity = wisdom.text)
-        case Failure(e) => server ! HttpResponse(entity = "BADNESS!!\n" + e.getMessage)
+        case Success(wisdom) => replyTo ! HttpResponse(entity = wisdom.text)
+        case Failure(e) => replyTo ! HttpResponse(entity = "BADNESS!!\n" + e.getMessage)
       }
 
 
