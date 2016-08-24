@@ -293,7 +293,6 @@
         <version>2.5.3</version>
       </plugin>
       <!-- Liquibase -->
-      <!-- Start Liquibase
       <plugin>
         <groupId>org.liquibase</groupId>
         <artifactId>liquibase-maven-plugin</artifactId>
@@ -301,7 +300,8 @@
         <configuration>
           <propertyFile>conf/liquibase.properties</propertyFile>
           <changeLogFile>db/databaseChangeLog.xml</changeLogFile>
-          <changelogSchemaName>call_experience_service</changelogSchemaName>
+          <changelogSchemaName>sprayground</changelogSchemaName>
+          <defaultSchemaName>sprayground</defaultSchemaName>
         </configuration>
         <executions>
           <execution>
@@ -312,8 +312,6 @@
           </execution>
         </executions>
       </plugin>
-      Liquibase end -->
-
     </plugins>
   </build>
 
