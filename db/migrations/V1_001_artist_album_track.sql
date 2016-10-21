@@ -1,5 +1,5 @@
 --liquibase formatted sql
---changeset V1_001
+--changeset V1_001_artist_album_track
 
 create table sprayground.artists
 (
@@ -36,3 +36,7 @@ create table sprayground.tracks
 alter table sprayground.tracks owner to deploydb;
 
 grant select, insert, update, delete on sprayground.tracks to sprayground_rw;
+
+--rollback drop table if exists sprayground.tracks
+--rollback drop table if exists sprayground.albums
+--rollback drop table if exists sprayground.artists

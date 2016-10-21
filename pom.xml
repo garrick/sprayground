@@ -301,7 +301,7 @@
           <propertyFile>conf/liquibase.properties</propertyFile>
           <changeLogFile>db/databaseChangeLog.xml</changeLogFile>
           <changelogSchemaName>sprayground</changelogSchemaName>
-          <defaultSchemaName>sprayground</defaultSchemaName>
+          <logging>debug</logging>
         </configuration>
         <executions>
           <execution>
