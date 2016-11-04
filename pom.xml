@@ -41,6 +41,11 @@
       <version>${slick.version}</version>
     </dependency>
     <dependency>
+      <groupId>com.typesafe.slick</groupId>
+      <artifactId>slick-hikaricp_${scala.version}</artifactId>
+      <version>${slick.version}</version>
+    </dependency>
+    <dependency>
       <groupId>com.github.tminglei</groupId>
       <artifactId>slick-pg_2.11</artifactId>
       <version>0.14.1</version>
@@ -49,6 +54,11 @@
       <groupId>com.github.tototoshi</groupId>
       <artifactId>slick-joda-mapper_2.11</artifactId>
       <version>2.2.0</version>
+    </dependency>
+    <dependency>
+      <groupId>com.zaxxer</groupId>
+      <artifactId>HikariCP</artifactId>
+      <version>2.5.1</version>
     </dependency>
     <dependency>
       <groupId>com.typesafe.akka</groupId>
@@ -122,7 +132,11 @@
   <build>
     <sourceDirectory>src/main/scala</sourceDirectory>
     <testSourceDirectory>src/test/scala</testSourceDirectory>
-
+    <resources>
+      <resource>
+        <directory>conf</directory>
+      </resource>
+    </resources>
     <plugins>
       <plugin>
         <groupId>org.scala-tools</groupId>

@@ -6,6 +6,7 @@ import spray.can.Http
 
 import scala.concurrent.ExecutionContext
 import scala.util.{Failure, Success}
+import daos.ArtistDaoSingleton
 
 
 object Main extends App  {
@@ -17,4 +18,9 @@ object Main extends App  {
   val handler = system.actorOf(Props[HelloWorldService], name = "handler")
 
   IO(Http) ! Http.Bind(handler, interface = "localhost", port = 8080)
+  val dbCheck = ArtistDaoSingleton.checkDatabaseConnection
+    dbCheck.onComplete {
+    case Success(x) => println(x)
+    case Failure(y) => println(y)
+  }
 }
